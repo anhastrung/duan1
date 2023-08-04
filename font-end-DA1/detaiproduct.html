@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Pham Chi Tiet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+        
+        .content-right-suppost {
+            cursor: pointer;
+            max-height: 29px;
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+        
+        .content-right-suppost-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .content-right-suppost-flex:hover p {
+            color: red;
+        }
+        
+        .content-right-suppost-flex p {
+            font-weight: 700;
+        }
+        
+        .content-right-suppost-flex {
+            transition: all 0.5s;
+        }
+        
+        .content-right-suppost button {
+            border: none;
+            background: red;
+            width: 180px;
+            height: 36px;
+            color: white;
+        }
+        
+        .toggle {
+            max-height: 1000px;
+        }
+        
+        .rotate {
+            transform: rotate(180deg);
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container w-[1440x] m-auto">
+        <header class="mb-[32px]">
+            <div class="logo-menu-icon flex justify-between ">
+                <div class="logo">
+                    <img src="img/logo-black.png" alt="">
+                </div>
+
+                <div class="menu flex justify-between items-center ">
+                    <ul class=""><a href="">ICE COTTON</a></ul>
+                    <ul class="ml-[16px]"><a href="">ÁO</a></ul>
+                    <ul class="ml-[16px]"><a href="">QUẦN</a></ul>
+                    <ul class="ml-[16px]"><a href="">BỘ SƯU TẬP</a></ul>
+                    <ul class="ml-[16px]"><a href="">BLOG</a></ul>
+                    <ul class="ml-[16px]"><a href="">VỀ CHÚNG TÔI</a></ul>
+                </div>
+
+                <div class="icon flex justify-between items-center">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i class="ml-[16px] fa-solid fa-location-dot"></i>
+                    <i class="ml-[16px] fa-solid fa-headphones"></i>
+                    <i class="ml-[16px] fa-regular fa-heart"></i>
+                    <i class="ml-[16px] fa-regular fa-circle-user"></i>
+                    <i class="ml-[16px] fa-solid fa-bag-shopping"></i>
+                </div>
+            </div>
+        </header>
+        <!-- ------------------------------------------------------------------------- -->
+
+        <div class="content ">
+            <h3 class="mb-[32px]">Trang chủ > Tất cả Sản Phẩm > Áo .....</h3>
+
+            <div class="flex justify-between">
+                <div class="img-content w-[709px]">
+                    <div class="img-1 flex ">
+                        <img class=" w-[255px] h-[375px]" src="img/anh1.jpg" alt="">
+                        <img class=" w-[255px] h-[375px]" src="img/anh2.jpg" alt="">
+                    </div>
+                    <div class="img-2 flex">
+                        <img class=" w-[255px] h-[375px]" src="img/anh3.jpg" alt="">
+                        <img class=" w-[255px] h-[375px]" src="img/anh4.jpg" alt="">
+                    </div>
+                    <div class="img-3 flex">
+                        <img class=" w-[255px] h-[375px]" src="img/anh5.jpg" alt="">
+                        <img class=" w-[255px] h-[375px]" src="img/anh6.jpg" alt="">
+                    </div>
+                </div>
+                <div class="properties ml-[50px] w-[709px] border border-box border-none">
+                    <h3 class="font-bold">Áo thun Humanity MS 57E3872</h3>
+                    <p class="font-bold mt-[30px] mb-[30px]">750.000đ</p>
+                    <hr class="mb-[20px]">
+                    <p class="font-bold">Màu sắc: Xanh tím than</p>
+                    <div class="input mt-[16px] mb-[16px]">
+                        <button class="border boder-[grey] border-[#000000] bg-[#000000] text-[white] pr-[5px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px]" type="radio">Đen</button>
+                        <button class="border boder-[grey] border-[#000000] ml-[16px] bg-[#777777] text-[white] pr-[5px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px] " type="radio">Sám</button>
+                        <button class="border boder-[grey] border-[#000000] bg-[#FFFFFF] pr-[5px] ml-[16px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px]" type="radio">Trắng</button>
+                    </div>
+
+                    <div class="size flex">
+                        <p>S</p>
+                        <p class="ml-[32px]">M</p>
+                        <p class="ml-[32px]">L</p>
+                        <p class="ml-[32px]">XL</p>
+                        <p class="ml-[32px]">XXL</p>
+                    </div>
+                    <p class="mt-[16px] mb-[16px] text-[12px] text-[#221F20]"><i class="fa-regular fa-circle-check"></i> Kiem tra size cua ban</p>
+                    <hr>
+                    <li class="number flex items-center mt-[16px] mb-[16px]">
+                        <div class="p">
+                            <p class="mr-[30px]">So Luong:</p>
+                        </div>
+                        <div class="h-[36px] w-[78px] border border-[grey] flex items-center justify-center">
+                            <button class="minus pr-[8px] h-[100%] border-r-[1px] border-[grey]">-</button>
+                            <input class="value w-[20px] ml-[10px]" type="text " value="3">
+                            <button class="plus pl-[5px] h-[100%] border-l-[1px] border-[grey]">+</button>
+                        </div>
+                    </li>
+                    <div class="item">
+                        <button class="w-[190px] h-[56px] border border-[grey] p-[16px] bg-[#000000] text-[white] font-bold">Thêm Vào Giỏ Hàng</button>
+                        <button class=" ml-[16px] mr-[16px] w-[190px] h-[56px] border border-[grey] border-[#000000] p-[16px]">Mua Ngay</button>
+                        <button class=" w-[56px] h-[56px] border border-[grey] border-[#000000] p-[16px]"> <i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <p class="mt-[16px] mb-[16px] text-[12px] text-[#221F20]"><i class="fa-regular fa-circle-check"></i> Tim tai cua hang</p>
+                    <hr>
+                    <div class="suppost">
+                        <div class="content-right-suppost mt-[16px]">
+                            <div class="content-right-suppost-flex">
+                                <p class="text-[16px]">Giới Thiệu</p>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+
+                            <div class="description">
+                                <p class="mt-[16px] text-[12px]">- Thiết kế áo thun dáng Slim fit thời trang, tay ngắn, cổ tròn. Ngực in hình thiết kế trẻ trung, năng động. </p>
+                                <p class="mt-[16px] text-[12px]">- Chất liệu thun cao cấp, mềm mại, thấm hút mồ hôi tốt mang đến cảm giác mặc thoải mái cho ngày hè năng động.</p>
+                                <p class="mt-[16px] text-[12px]">- Có thể kết hợp áo cùng nhiều kiểu quần khác nhau để tạo dựng phong cách cho riêng mình. </p>
+                                <p class="mt-[16px] mb-[16px] text-[12px]"><span class="text-[red]">Lưu ý:</span> Màu sắc sản phẩm thực tế sẽ có sự chênh lệch nhỏ so với ảnh do điều kiện ánh sáng khi chụp và màu sắc hiển thị qua màn hình máy tính/ điện thoại.s</p>
+                            </div>
+                        </div>
+                        <div class="content-right-suppost mt-[16px]">
+                            <div class="content-right-suppost-flex">
+                                <p class="text-[16px]">Hướng Dẫn Bảo Quản</p>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="decription">
+                                <h4 class="mt-[16px]">Chi tiết bảo quản sản phẩm :</h4>
+
+                                <p class="text-[12px] mt-[16px]">* Vải dệt kim : sau khi giặt sản phẩm phải được phơi ngang tránh bai dãn.</p>
+
+                                <p class="text-[12px] mt-[16px]">* Vải thô , tuytsy , kaki không có phối hay trang trí đá cườm thì có thể giặt máy.</p>
+
+                                <p class="text-[12px] mt-[16px]"> * Đồ Jeans nên hạn chế giặt bằng máy giặt vì sẽ làm phai màu jeans.Nếu giặt thì nên lộn trái sản phẩm khi giặt , đóng khuy , kéo khóa, không nên giặt chung cùng đồ sáng màu , tránh dính màu vào các sản phẩm khác.</p>
+
+                                <p class="text-[12px] mt-[16px]">* Các sản phẩm cần được giặt ngay không ngâm tránh bị loang màu , phân biệt màu và loại vải để tránh trường hợp vải phai. Không nên giặt sản phẩm với xà phòng có chất tẩy mạnh , nên giặt cùng xà phòng pha loãng.</p>
+
+                                <p class="text-[12px] mt-[16px]">* Các sản phẩm có thể giặt bằng máy thì chỉ nên để chế độ giặt nhẹ , vắt mức trung bình và nên phân các loại sản phẩm cùng màu và cùng loại vải khi giặt.</p>
+
+                                <p class="text-[12px] mt-[16px]">* Nên phơi sản phẩm tại chỗ thoáng mát , tránh ánh nắng trực tiếp sẽ dễ bị phai bạc màu , nên làm khô quần áo bằng cách phơi ở những điểm gió sẽ giữ màu vải tốt hơn.</p>
+
+                                <p class="text-[12px] mt-[16px]">* Những chất vải 100% cotton , không nên phơi sản phẩm bằng mắc áo mà nên vắt ngang sản phẩm lên dây phơi để tránh tình trạng rạn vải.</p>
+
+                                <p class="text-[12px] mt-[16px] mb-[16px]">* Khi ủi sản phẩm bằng bàn là và sử dụng chế độ hơi nước sẽ làm cho sản phẩm dễ ủi phẳng , mát và không bị cháy , giữ màu sản phẩm được đẹp và bền lâu hơn. Nhiệt độ của bàn là tùy theo từng loại vải.</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <!-- -------------------------------------------------------------------------- -->
+            <footer class="mt-[120px]">
+                <div class="flex justify-between">
+                    <div class="w-[350px]">
+                        <div class="img flex">
+                            <img class="w-[175px] h-[25px]" src="img/logo-black.png" alt="">
+                            <img class="w-[107px] h-[40px]" src="img/img-congthuong.png" alt="">
+                        </div>
+                        <p class=" mt-[16px] mb-[16px] text-[12px]">Công ty TNHH Dự Tài</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold">Địa chỉ đăng ký: </span>Lô L3, Khu công nghiệp dệt may Phố Nối B, Phường Dị Sử, Thị xã Mỹ Hào, Tỉnh Hưng Yên, Việt Nam</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold"> Số điện thoại:</span> 031724102485101</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold">Ngày cấp: </span> 22/03/2019</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold">Nơi cấp:</span> Phòng Đăng kí kinh doanh - Sở kế hoạch đầu tư tỉnh Hưng Yên</p>
+                        <div class="mt-[16px] mb-[16px] text-[12px]  flex">
+                            <img class=" w-[30px] h-[30px]" src="img/facebook.png" alt="">
+                            <img class=" ml-[16px] w-[30px] h-[30px]" src="img/tiktok.png" alt="">
+                            <img class=" ml-[16px] w-[30px] h-[30px]" src="img/intagram.jpg" alt="">
+                        </div>
+                        <div class="mt-[16px] mb-[16px] text-[12px]   ">
+                            <p class="font-bold pl-[32px] bg-[black] w-[228px] h-[40px] pl-[10px] pt-[10px] text-[#F7F8F9]">HOTLINE: <span class=" ml-[8px]">0348481132999</span></p>
+                        </div>
+                    </div>
+                    <div class="w-[140px] ml-[16px]">
+                        <h3 class=" mb-[30px]  font-bold">GIỚI THIỆU</h3>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Về Metagent</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Tuyển dụng</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Hệ thống cửa hàng</p>
+                    </div>
+                    <div class="w-[80px] ml-[16px]">
+                        <h3 class="mb-[30px] font-bold">LIÊN HỆ</h3>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Hotline</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Email</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Email</p>
+                    </div>
+                    <div class="w-[340px] ml-[16px]">
+                        <h3 class="mb-[30px] font-bold">DỊCH VỤ KHÁCH HÀNG</h3>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Tra cứu đơn hàng</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách thẻ thành viên</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách bảo hành</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách đổi trả</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách giao nhận vận chuyển</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Quyền và nghĩa vụ khách hàng</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Bảo vệ thông tin cá nhân của người tiêu dùng</p>
+                        <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách thanh toán</p>
+                    </div>
+                    <div class="w-[300px] ">
+                        <h3 class="mb-[30px] font-bold">ĐĂNG KÝ NHẬN THÔNG TIN</h3>
+                        <button class="border border-[black]"><input class="m-[10px]"  type="text" placeholder="Nhập Email "> <i class="m-[10px] fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <hr>
+                    <p class=" p-[24px]">All rights Reserved <i class="m-[10px] fa-regular fa-copyright"></i><span class="font-bold">Metagent 2022</span></p>
+                </div>
+            </footer>
+
+            <script>
+                let minus = document.querySelector(".minus");
+                let value = document.querySelector(".value");
+                let plus = document.querySelector(".plus");
+                minus.addEventListener("click", function() {
+                    if (Number(value.value) == 1) {
+                        value.value = 1
+                    } else {
+                        value.value = Number(value.value) - 1
+                    }
+                })
+                plus.addEventListener("click", function() {
+                    value.value = Number(value.value) + 1
+                })
+                let desall = document.querySelectorAll(".content-right-suppost");
+                let check = document.querySelectorAll(".fa-chevron-down");
+
+                desall.forEach((item, index) => {
+                    return item.addEventListener("click", function() {
+                        check[index].classList.toggle("rotate");
+                        item.classList.toggle("toggle");
+                    });
+                });
+            </script>
+</body>
+
+</html>
