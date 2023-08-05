@@ -1,9 +1,14 @@
 <?php
+session_start();
+if (!strcasecmp($_SESSION['role'], "admin") == 0) {
+  header("location:../../");
+  die;
+}
 $limitPage = 9;
 if (isset($_GET['page'])) {
-    $page = $_GET['page'];
+  $page = $_GET['page'];
 } else {
-    $page = 0;
+  $page = 0;
 }
 $productPage = $page * $limitPage;
 $url = $_SERVER['REQUEST_URI'];
@@ -71,7 +76,7 @@ $accept = [
     </ul>
   </div>
   <div class="w-full p-8">
-    <?php require $VIEW_NAME.".php" ?>
+    <?php require $VIEW_NAME . ".php" ?>
   </div>
 </body>
 
