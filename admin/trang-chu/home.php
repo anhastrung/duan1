@@ -1,0 +1,1 @@
+<div class="text-center font-bold text-3xl m-8">Quản Trị Website</div>

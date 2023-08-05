@@ -6,38 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>San Pham Chi Tiet</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
             font-family: sans-serif;
         }
-        
+
         .content-right-suppost {
             cursor: pointer;
             max-height: 29px;
             overflow: hidden;
             transition: all 0.5s;
         }
-        
+
         .content-right-suppost-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .content-right-suppost-flex:hover p {
             color: red;
         }
-        
+
         .content-right-suppost-flex p {
             font-weight: 700;
         }
-        
+
         .content-right-suppost-flex {
             transition: all 0.5s;
         }
-        
+
         .content-right-suppost button {
             border: none;
             background: red;
@@ -45,26 +44,26 @@
             height: 36px;
             color: white;
         }
-        
+
         .toggle {
             max-height: 1000px;
         }
-        
+
         .rotate {
             transform: rotate(180deg);
             transition: all 0.5s;
         }
-        
+
         .cart {
             padding: 100px 50px;
         }
-        
+
         .cart-top-wrap {
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
+
         .cart-top {
             height: 2px;
             width: 70%;
@@ -74,7 +73,7 @@
             align-items: center;
             margin: 50px 0 100px;
         }
-        
+
         .cart-top-item {
             width: 40px;
             height: 40px;
@@ -85,25 +84,25 @@
             justify-content: center;
             background-color: #fff;
         }
-        
+
         .cart-top-cart {
             border: 1px solid #0db7ea;
         }
-        
+
         .cart-top-cart i {
             color: #0db7ea;
         }
-        
+
         .cart-content-left {
             flex: 2;
             padding-right: 12px;
         }
-        
+
         .cart-content-left table {
             width: 100%;
             align-items: center;
         }
-        
+
         .cart-content-left table th {
             padding-bottom: 30px;
             font-size: 12px;
@@ -112,37 +111,37 @@
             border-collapse: collapse;
             border-bottom: 2px solid #dddddd;
         }
-        
+
         .cart-content-left table p {
             font-size: 12px;
         }
-        
+
         .cart-content-left table input {
             width: 30px;
         }
-        
+
         .cart-content-left td:first-child img {
             width: 130px;
         }
-        
+
         .cart-content-left td:nth-child(2) {
             max-width: 130px;
         }
-        
+
         .cart-content-left td:nth-child(3) img {
             width: 30px;
         }
-        
+
         .cart-content-right {
             flex: 1;
             padding-left: 12px;
             border-left: 2px solid #dddddd;
         }
-        
+
         .cart-content-right table {
             width: 100%;
         }
-        
+
         .cart-content-right table th {
             padding-bottom: 30px;
             font-size: 12px;
@@ -150,81 +149,81 @@
             border-collapse: collapse;
             border-bottom: 2px solid #dddddd;
         }
-        
+
         .cart-content-right table td {
             font-size: 12px;
             color: #333;
             padding: 6px 0;
         }
-        
+
         .cart-content-right tr:nth-child(4) td {
             border-top: 2px solid #dddddd;
         }
-        
+
         .cart-content-right tr td:last-child {
             text-align: right;
         }
-        
+
         .cart-content-right-text {
             margin: 20px 0;
             text-align: center;
         }
-        
+
         .cart-content-right-text p {
             font-size: 12px;
             color: #333;
         }
-        
+
         .cart-content-right-button {
             text-align: center;
             align-items: center;
         }
-        
+
         .cart-content-right-button button {
             padding: 0 18px;
             height: 35px;
             cursor: pointer;
         }
-        
+
         .cart-content-right-button button:first-child {
             background-color: #fff;
             border: 2px solid black;
             margin-right: 20px;
         }
-        
+
         .cart-content-right-button button:first-child:hover {
             background-color: #dddddd;
         }
-        
+
         .cart-content-right-button button:last-child {
             background-color: #000;
             color: white;
             border: none;
             border: 1px solid black;
         }
-        
+
         .cart-content-right-button button:last-child:hover {
             background-color: #fff;
             color: #333;
         }
-        
+
         .cart-content-right-dangnhap {
             margin-top: 20px;
         }
-        
+
         .cart-content-right-dangnhap p {
             font-size: 12px;
             color: #333;
         }
-        
+
         .cart-content-right-dangnhap p a {
             color: red;
         }
-        
+
         .cart-content-right-dangnhap p:last-child {
             margin-left: 20px;
         }
-        
+
         .cart-content-left table span {
             display: block;
             width: 20px;
@@ -233,7 +232,7 @@
             text-align: center;
             cursor: pointer;
         }
-        
+
         .cart-content-left table td {
             padding: 20px 0;
             border-bottom: 2px solid #dddddd;
@@ -244,31 +243,8 @@
 <body>
     <div class="container w-[1440x] m-auto">
         <header class="mb-[32px]">
-            <div class="logo-menu-icon flex justify-between ">
-                <div class="logo">
-                    <img src="img/logo-black.png" alt="">
-                </div>
-
-                <div class="menu flex justify-between items-center ">
-                    <ul class=""><a href="">ICE COTTON</a></ul>
-                    <ul class="ml-[16px]"><a href="">ÁO</a></ul>
-                    <ul class="ml-[16px]"><a href="">QUẦN</a></ul>
-                    <ul class="ml-[16px]"><a href="">BỘ SƯU TẬP</a></ul>
-                    <ul class="ml-[16px]"><a href="">BLOG</a></ul>
-                    <ul class="ml-[16px]"><a href="">VỀ CHÚNG TÔI</a></ul>
-                </div>
-
-                <div class="icon flex justify-between items-center">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <i class="ml-[16px] fa-solid fa-location-dot"></i>
-                    <i class="ml-[16px] fa-solid fa-headphones"></i>
-                    <i class="ml-[16px] fa-regular fa-heart"></i>
-                    <i class="ml-[16px] fa-regular fa-circle-user"></i>
-                    <i class="ml-[16px] fa-solid fa-bag-shopping"></i>
-                </div>
-            </div>
+            <?php require "./layout/header.php" ?>
         </header>
-
         <div class="content">
             <section class="cart">
                 <div class="container">
@@ -276,15 +252,12 @@
                         <div class="cart-top">
                             <div class="cart-top-cart cart-top-item">
                                 <i class="fa-solid fa-cart-shopping "></i>
-
                             </div>
                             <div class="cart-top-adress cart-top-item"><i class="fa-solid fa-location-dot"></i></div>
                             <div class="cart-top-payment cart-top-item">
                                 <i class="fa-solid fa-money-check"></i>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="container">
@@ -302,7 +275,6 @@
                                 </tr>
                                 <tr>
                                     <td><img src="https://pubcdn.ivymoda.com/files/product/thumab/400/2022/05/27/1b751da0513d24200158440a2f9513b4.JPG" alt=""></td>
-
                                     <td>
                                         <p>Áo Thun In Hình</p>
                                     </td>
@@ -318,7 +290,6 @@
                                 </tr>
                                 <tr>
                                     <td><img src="https://pubcdn.ivymoda.com/files/product/thumab/1400/2022/08/18/eb570a75a91e54af791507df19c488e4.JPG" alt=""></td>
-
                                     <td>
                                         <p>Áo Thun In Hình</p>
                                     </td>
@@ -373,61 +344,8 @@
         </div>
         <!-- -------------------------------------------------------------------------- -->
         <footer class="mt-[120px]">
-            <div class="flex justify-between">
-                <div class="w-[350px]">
-                    <div class="img flex">
-                        <img class="w-[175px] h-[25px]" src="img/logo-black.png" alt="">
-                        <img class="w-[107px] h-[40px]" src="img/img-congthuong.png" alt="">
-                    </div>
-                    <p class=" mt-[16px] mb-[16px] text-[12px]">Công ty TNHH Dự Tài</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold">Địa chỉ đăng ký: </span>Lô L3, Khu công nghiệp dệt may Phố Nối B, Phường Dị Sử, Thị xã Mỹ Hào, Tỉnh Hưng Yên, Việt Nam</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold"> Số điện thoại:</span> 031724102485101</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold">Ngày cấp: </span> 22/03/2019</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]"><span class="font-bold">Nơi cấp:</span> Phòng Đăng kí kinh doanh - Sở kế hoạch đầu tư tỉnh Hưng Yên</p>
-                    <div class="mt-[16px] mb-[16px] text-[12px]  flex">
-                        <img class=" w-[30px] h-[30px]" src="img/facebook.png" alt="">
-                        <img class=" ml-[16px] w-[30px] h-[30px]" src="img/tiktok.png" alt="">
-                        <img class=" ml-[16px] w-[30px] h-[30px]" src="img/intagram.jpg" alt="">
-                    </div>
-                    <div class="mt-[16px] mb-[16px] text-[12px]   ">
-                        <p class="font-bold pl-[32px] bg-[black] w-[228px] h-[40px] pl-[10px] pt-[10px] text-[#F7F8F9]">HOTLINE: <span class=" ml-[8px]">0348481132999</span></p>
-                    </div>
-                </div>
-                <div class="w-[140px] ml-[16px]">
-                    <h3 class=" mb-[30px]  font-bold">GIỚI THIỆU</h3>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Về Metagent</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Tuyển dụng</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Hệ thống cửa hàng</p>
-                </div>
-                <div class="w-[80px] ml-[16px]">
-                    <h3 class="mb-[30px] font-bold">LIÊN HỆ</h3>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Hotline</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Email</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Email</p>
-                </div>
-                <div class="w-[340px] ml-[16px]">
-                    <h3 class="mb-[30px] font-bold">DỊCH VỤ KHÁCH HÀNG</h3>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Tra cứu đơn hàng</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách thẻ thành viên</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách bảo hành</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách đổi trả</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách giao nhận vận chuyển</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Quyền và nghĩa vụ khách hàng</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Bảo vệ thông tin cá nhân của người tiêu dùng</p>
-                    <p class="mt-[16px] mb-[16px] text-[12px]">Chính sách thanh toán</p>
-                </div>
-                <div class="w-[300px] ">
-                    <h3 class="mb-[30px] font-bold">ĐĂNG KÝ NHẬN THÔNG TIN</h3>
-                    <button class="border border-[black]"><input class="m-[10px]"  type="text" placeholder="Nhập Email "> <i class="m-[10px] fa-solid fa-arrow-right"></i></button>
-                </div>
-            </div>
-
-            <div class="text-center">
-                <hr>
-                <p class=" p-[24px]">All rights Reserved <i class="m-[10px] fa-regular fa-copyright"></i><span class="font-bold">Metagent 2022</span></p>
-            </div>
+            <?php require "./layout/footer.php" ?>
         </footer>
-
         <script>
             let minus = document.querySelector(".minus");
             let value = document.querySelector(".value");
@@ -444,7 +362,6 @@
             })
             let desall = document.querySelectorAll(".content-right-suppost");
             let check = document.querySelectorAll(".fa-chevron-down");
-
             desall.forEach((item, index) => {
                 return item.addEventListener("click", function() {
                     check[index].classList.toggle("rotate");
