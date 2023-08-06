@@ -35,7 +35,7 @@ if (isset($_POST['log-out'])) {
             if (isset($_SESSION['user'])) {
             ?>
                 <form method="post" class="dropdown-content hidden absolute bg-[#f9f9f9] left-[-60px]">
-                    <a class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" href="?site=update">Cập nhật tài khoản</a>
+                    <a class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" href="cn-user.php">Cập nhật tài khoản</a>
                     <?php if ($role == "admin") { ?>
                         <a class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" href="../admin/">Quản lý trang web</a>
                     <?php } ?>
