@@ -3,6 +3,17 @@ session_start();
 if (isset($_SESSION['user'])) {
     extract($_SESSION['user']);
 }
+require "../connect.php";
+if (isset($_SESSION['role'])) {
+    $email_dn = $_SESSION['email'];
+    try {
+        $sql = "SELECT * FROM user where email = '$email_dn'";
+        $run = $connect->prepare($sql);
+        $run->execute();
+        $data = $run->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
