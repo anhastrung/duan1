@@ -25,26 +25,18 @@ if (isset($_POST['log-out'])) {
     </div>
     <div class="icon flex justify-between items-center">
         <i class="mr-2 fa-solid fa-magnifying-glass"></i>
-        <div class="user relative inline-block dropdown cursor-pointer">
-            <div class="dropbtn flex justify-start items-center gap-1">
-                <a href="<?php if(!isset($_SESSION['user'])) echo "./login.php" ?>">
-                <i class="mx-2 fa-regular fa-circle-user"></i>
-                </a>
-            </div>
-            <?php
-            if (isset($_SESSION['user'])) {
-            ?>
-                <form method="post" class="dropdown-content hidden absolute bg-[#f9f9f9] left-[-60px]">
-                    <a class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" href="?site=update">Cập nhật tài khoản</a>
-                    <?php if ($role == "admin") { ?>
-                        <a class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" href="../admin/">Quản lý trang web</a>
-                    <?php } ?>
-                    <button class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" name="log-out">Thoát</button>
-                </form>
-            <?php
-            }
-            ?>
-        </div>
+        <?php if (!isset($_SESSION['role'])) {
+            echo '<a href="./login.php"><i class="mx-2 fa-regular fa-circle-user></i></a>';
+        } else { ?>
+            <span class="relative cursor-pointer" id="user">Hello <?= $data['fullname'] ?></span>
+            <ul class="hidden absolute top-[60px] border-x-2 border-b-2 border-solid border-[#0ef] rounded-bl-[10px] rounded-br-[10px]" id="Navbaruser">
+                <li class="block mx-3"><a class="text-[20px] font-semibold  hover:text-red-600 text-center" href="./cn-user.php">Cập nhật tài khoản</a></li>
+                <?php if (strcasecmp($data['role'], "admin") == 0) { ?>
+                    <li class="block mx-3"><a class="text-[20px] font-semibold hover:text-red-600 flex justify-center" href="#">Admin</a></li>
+                <?php } ?>
+                <a href="./logout.php"><button class="flex justify-center text-[20px] font-semibold hover:text-red-600  text-center m-auto">Thoát</button></a>
+            </ul>
+        <?php } ?>
         <a href="cart.php"><i class="ml-2 fa-solid fa-bag-shopping"></i></a>
     </div>
 </div>

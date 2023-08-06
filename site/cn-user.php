@@ -1,7 +1,9 @@
 <?php
-$id = $_GET['id'];
+session_start();
+require "../connect.php";
+$email_dn = $_SESSION['email'];
 try {
-    $sql = "SELECT * from user where id_user=$id";
+    $sql = "SELECT * from user where email='$email_dn'";
     $run = $connect->prepare($sql);
     $run->execute();
     $data = $run->fetch(PDO::FETCH_ASSOC);
@@ -12,22 +14,14 @@ try {
 
 if (isset($_POST['sua'])) {
     $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
     $phone = $_POST['phone'];
-    $anh = $_POST['anh'];
     $ngaysinh = $_POST['ngaysinh'];
     $sex = $_POST['sex'];
-    $kichhoat = $_POST['kich-hoat'];
     $location = $_POST['location'];
-    $role = $_POST['role'];
     $password = $_POST['password'];
-    $password_ans = $_POST['answe-password'];
     $error = [];
     if (empty($fullname)) {
         $error['fullname'] = "Vui lòng nhập họ và tên";
-    }
-    if (empty($email)) {
-        $error['email'] = "Vui lòng nhập email";
     }
     if (empty($phone)) {
         $error['phone'] = "Vui lòng nhập số điện thoại";
@@ -58,42 +52,52 @@ if (isset($_POST['sua'])) {
     if (empty($password)) {
         $error['password'] = "Vui lòng nhập mật khẩu";
     }
-    if (empty($password_ans)) {
-        $error['password_ans'] = "Vui lòng nhập lại mật khẩu";
-    } else {
-        if ($password_ans != $password) {
-            $error['password_ans'] = "Mật khẩu không khớp";
-        }
-    }
     if (empty($error)) {
         try {
-            $sql = "UPDATE user SET `fullname`='$fullname', `email`='$email', `password`='$password', `phone`='$phone', `img`='$img', `birthday`='$ngaysinh', `sex`='$sex', kichhoat=$kichhoat, `location`='$location',  `role`='$role' WHERE id_user=$id";
+            $sql = "UPDATE user SET `fullname`='$fullname', `password`='$password', `phone`='$phone', `img`='$img', `birthday`='$ngaysinh', `sex`='$sex', `location`='$location'   WHERE email='$email_dn'";
             $run = $connect->prepare($sql);
             $run->execute();
-            move_uploaded_file($_FILES['img']['tmp_name'], "../../upload/" . $img);
-            header("location:?site=list");
+            header("location:./index.php");
         } catch (PDOException $e) {
             echo "Lỗi hệ thống";
         }
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật tài khoản</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+</body>
+
+</html>
 <form method="post" action="" class="grid grid-cols-1 gap-[20px] w-[80%] m-auto" enctype="multipart/form-data">
-    <h3 class="my-[40px] font-bold text-[29px]">SỬA TÀI KHOẢN</h3>
+    <h3 class="my-[40px] font-bold text-[29px] text-center">CẬP NHẬT TÀI KHOẢN</h3>
     <div class="form-group">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Họ và tên</label>
         <input value="<?= (isset($_POST['sua'])) ? ($_POST['fullname']) : ($data['fullname']) ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="text" id="lname" name="fullname" placeholder="Họ và tên">
         <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['fullname'] ?? "" ?></span>
     </div>
     <div class="form-group">
-        <input value="<?= (isset($_POST['sua'])) ? ($_POST['email']) : ($data['email']) ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="email" id="fname" name="email" placeholder="Email">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Email</label>
+        <input value="<?= $data['email'] ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="email" id="fname" name="email" placeholder="Email" disabled>
         <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['email'] ?? "" ?></span>
     </div>
     <div class="form-group">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Số điện thoại</label>
         <input value="<?= (isset($_POST['sua'])) ? ($_POST['phone']) : ($data['phone']) ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="text" id="lname" name="phone" placeholder="Điện thoại">
         <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['phone'] ?? "" ?></span>
     </div>
     <div class="form-group">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Ảnh</label>
         <?php if (!empty($data['img'])) { ?>
             <img src="../upload/<?php if (isset($_POST['sua'])) {
                                     if ($_FILES['img']['size'] > 0) {
@@ -117,11 +121,13 @@ if (isset($_POST['sua'])) {
         <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['img'] ?? "" ?></span>
     </div>
     <div class="form-group">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Ngày sinh</label>
         <input value="<?= (isset($_POST['sua'])) ? ($_POST['ngaysinh']) : ($data['birthday']) ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="date" id="fname" name="ngaysinh" placeholder="Ngày sinh">
         <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['ngaysinh'] ?? "" ?></span>
     </div>
     <div class="form-group">
-        <select class="h-[50px] w-full border-solid border-[1px] p-[10px]" name="sex" id="">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Giới tính</label>
+        <select class="w-full border-solid border-[1px] border-black p-[10px]" name="sex" id="">
             <option class="" value="Nam" <?php if (isset($_POST['sua'])) {
                                                 if ($_POST['sex'] == "Nam") {
                                                     echo "selected";
@@ -153,81 +159,15 @@ if (isset($_POST['sua'])) {
         </select>
     </div>
     <div class="form-group">
-        <select class="h-[50px] w-full border-solid border-[1px] p-[10px]" name="kich-hoat" id="">
-            <option class="" value="0" <?php if (isset($_POST['sua'])) {
-                                            if ($_POST['kich-hoat'] == "0") {
-                                                echo "selected";
-                                            } else {
-
-                                                echo "";
-                                            }
-                                        } else {
-                                            if ($data['kichhoat'] == "0") {
-                                                echo "selected";
-                                            } else {
-                                                echo "";
-                                            }
-                                        } ?>>Cho dùng</option>
-            <option class="" value="1" <?php if (isset($_POST['sua'])) {
-                                            if ($_POST['kich-hoat'] == "1") {
-                                                echo "selected";
-                                            } else {
-
-                                                echo "";
-                                            }
-                                        } else {
-                                            if ($data['kichhoat'] == "1") {
-                                                echo "selected";
-                                            } else {
-                                                echo "";
-                                            }
-                                        } ?>>Tắt hoạt động</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <select class="h-[50px] w-full border-solid border-[1px] p-[10px]" name="role" id="">
-            <option class="" value="user" <?php if (isset($_POST['sua'])) {
-                                                if ($_POST['role'] == "user") {
-                                                    echo "selected";
-                                                } else {
-
-                                                    echo "";
-                                                }
-                                            } else {
-                                                if ($data['role'] == "0") {
-                                                    echo "selected";
-                                                } else {
-                                                    echo "";
-                                                }
-                                            } ?>>Người dùng</option>
-            <option class="" value="admin" <?php if (isset($_POST['sua'])) {
-                                                if ($_POST['role'] == "admin") {
-                                                    echo "selected";
-                                                } else {
-
-                                                    echo "";
-                                                }
-                                            } else {
-                                                if ($data['role'] == "admin") {
-                                                    echo "selected";
-                                                } else {
-                                                    echo "";
-                                                }
-                                            } ?>>Quản trị viên</option>
-        </select>
-    </div>
-    <div class="form-group">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Địa chỉ</label>
         <input value="<?= (isset($_POST['sua'])) ? ($_POST['location']) : ($data['location']) ?>" class="pt-[8px] pb-[8px]  border border-[grey] pl-[16px] w-[100%]" type="text" id="fname" name="location" placeholder="Nhập địa chỉ">
         <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['location'] ?? "" ?></span>
     </div>
 
     <div class="form-group">
+        <label class=" font-normal sm:font-medium md:semibold text-[16px]">Mật khẩu</label>
         <input value="<?= (isset($_POST['sua'])) ? ($_POST['password']) : ($data['password']) ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px] w-[100%]" type="password" id="lname" name="password" placeholder="Mật khẩu">
         <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['password'] ?? "" ?></span>
-    </div>
-    <div class="form-group">
-        <input value="<?= (isset($_POST['sua'])) ? ($_POST['answe-password']) : ($data['password']) ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px] w-[100%]" type="password" id="fname" name="answe-password" placeholder="Nhập lại mật khẩu">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['password_ans'] ?? "" ?></span>
     </div>
     <input name="sua" class=" font-bold w-[100%] h-[48px] bg-[black] pt-[8px] pb-[8px] pl-[16px] pr-[16px] text-white rounded-[10px]" type="submit" value="SỬA">
 </form>

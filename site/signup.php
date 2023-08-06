@@ -1,8 +1,5 @@
 <?php
 session_start();
-if (isset($_SESSION['user'])) {
-    extract($_SESSION['user']);
-}
 require_once "../connect.php";
 if (isset($_POST['dang-ky'])) {
     $fullname = $_POST['fullname'];
@@ -131,11 +128,9 @@ if (isset($_POST['dang-ky'])) {
                             <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['ngaysinh'] ?? "" ?></span>
                         </div>
                         <div class="form-group">
-                            <select class="sex" name="sex" id="">
-                                <select class="sex w-full" name="sex" id="">
-                                    <option class="" value="Nam" <?= (isset($_POST['sex']) && ($_POST['sex'] == "Nam")) ? "selected" : "" ?>>Nam</option>
-                                    <option class="" value="Nữ" <?= (isset($_POST['sex']) && ($_POST['sex'] == "Nữ")) ? "selected" : "" ?>>Nữ</option>
-                                </select>
+                            <select class="h-[50px] w-full border-solid border-[1px] p-[10px]" name="sex" id="">
+                                <option class="" value="Nam" <?= (isset($_POST['sex']) && ($_POST['sex'] == "Nam")) ? "selected" : "" ?>>Nam</option>
+                                <option class="" value="Nữ" <?= (isset($_POST['sex']) && ($_POST['sex'] == "Nữ")) ? "selected" : "" ?>>Nữ</option>
                             </select>
                         </div>
                         <div class="form-group">
