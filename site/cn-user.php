@@ -1,9 +1,11 @@
 <?php
 session_start();
+if (isset($_SESSION['user'])) {
+    extract($_SESSION['user']);
+}
 require "../connect.php";
-$email_dn = $_SESSION['email'];
 try {
-    $sql = "SELECT * from user where email='$email_dn'";
+    $sql = "SELECT * from user where email='$email'";
     $run = $connect->prepare($sql);
     $run->execute();
     $data = $run->fetch(PDO::FETCH_ASSOC);
