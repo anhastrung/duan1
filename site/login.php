@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['user'])) {
+    extract($_SESSION['user']);
+}
 require_once "../connect.php";
 if (isset($_POST['dang-nhap'])) {
     $email = $_POST['email'];
@@ -21,14 +24,11 @@ if (isset($_POST['dang-nhap'])) {
         }
         if ($data) {
             if ($password == $data['password']) {
+                $_SESSION['user'] = $data;
                 if ($data['role'] == 'admin') {
-                    $_SESSION['email'] = $data['email'];
-                    $_SESSION['role'] = $data['role'];
                     header("location:../admin");
                     die;
                 } else {
-                    $_SESSION['email'] = $data['email'];
-                    $_SESSION['role'] = $data['role'];
                     header("location:./index.php");
                     die;
                 }

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['user'])) {
+    extract($_SESSION['user']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +75,7 @@
             <?php require "./layout/header.php" ?>
         </header>
         <!-- ------------------------------------------------------------------------- -->
-        <div class="content ">
+        <div class="content">
             <h3 class="mb-[32px]">Trang chủ > Tất cả Sản Phẩm</h3>
             <div class="flex justify-between">
                 <?php
@@ -87,9 +94,9 @@
                     <hr class="mb-[20px]">
                     <p class="font-bold">Màu sắc: Xanh tím than</p>
                     <div class="input mt-[16px] mb-[16px]">
-                        <button class="border boder-[grey] border-[#000000] bg-[#000000] text-[white] pr-[5px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px]" type="radio">Đen</button>
-                        <button class="border boder-[grey] border-[#000000] ml-[16px] bg-[#777777] text-[white] pr-[5px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px] " type="radio">Sám</button>
-                        <button class="border boder-[grey] border-[#000000] bg-[#FFFFFF] pr-[5px] ml-[16px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px]" type="radio">Trắng</button>
+                        <button type="button" class="border boder-[grey] border-[#000000] bg-[#000000] text-[white] pr-[5px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px]" type="radio">Đen</button>
+                        <button type="button" class="border boder-[grey] border-[#000000] ml-[16px] bg-[#777777] text-[white] pr-[5px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px] " type="radio">Sám</button>
+                        <button type="button" class="border boder-[grey] border-[#000000] bg-[#FFFFFF] pr-[5px] ml-[16px]"><input class="mt-[3px] mb-[3px] mr-[5px] ml-[5px]" type="radio">Trắng</button>
                     </div>
                     <div class="size flex">
                         <p>S</p>
@@ -106,13 +113,30 @@
                             <p class="mr-[30px]">So Luong:</p>
                         </div>
                         <div class="h-[36px] w-[78px] border border-[grey] flex items-center justify-center">
-                            <button class="minus pr-[8px] h-[100%] border-r-[1px] border-[grey]">-</button>
-                            <input class="value w-[20px] ml-[10px]" type="number" min="1" max="1000" value="1">
-                            <button class="plus pl-[5px] h-[100%] border-l-[1px] border-[grey]">+</button>
+                            <button type="button" class="minus pr-[8px] h-[100%] border-r-[1px] border-[grey]">-</button>
+                            <input class="value w-[20px] ml-[10px]" type="number" min="1" max="<?=$product['number_product']?>" value="1" name="number_product">
+                            <button type="button" class="plus pl-[5px] h-[100%] border-l-[1px] border-[grey]">+</button>
                         </div>
                     </li>
                     <div class="item">
-                        <button class="w-[190px] h-[56px] border border-[grey] p-[16px] bg-[#000000] text-[white] font-bold">Thêm
+                        <?php
+                        if (isset($_POST['add-to-cart'])) {
+                            if(isset($_SESSION['user'])) {
+                                for ($i = 0; $i < $_POST['number_product']; $i++) {
+                                    $sql = "INSERT INTO cart (id_user, id_product) VALUES ('$id_user', '$id')";
+                                    $connect->exec($sql);
+                                }
+                            }
+                            else {
+                                $add = [
+                                    'id_product' => $id,
+                                    'number_product' => $_POST['number_product'],
+                                ];
+                                $_SESSION['product'][] = $add;
+                            }
+                        }
+                        ?>
+                        <button class="w-[190px] h-[56px] border border-[grey] p-[16px] bg-[#000000] text-[white] font-bold" name="add-to-cart">Thêm
                             Vào Giỏ Hàng</button>
                     </div>
                     <p class="mt-[16px] mb-[16px] text-[12px] text-[#221F20]"><i class="fa-regular fa-circle-check"></i>
@@ -125,7 +149,7 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="description">
-                                <p class="mt-[16px] text-[12px]">- <?=$product['detail_product']?>.</p>
+                                <p class="mt-[16px] text-[12px]">- <?= $product['detail_product'] ?>.</p>
                                 <p class="mt-[16px] mb-[16px] text-[12px]"><span class="text-[red]">Lưu ý:</span> Màu
                                     sắc sản phẩm thực tế sẽ có sự chênh lệch nhỏ so với ảnh do điều kiện ánh sáng khi
                                     chụp và màu sắc hiển thị qua màn hình máy tính/ điện thoại.</p>

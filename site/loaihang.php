@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (isset($_SESSION['user'])) {
+    extract($_SESSION['user']);
+}
 require "../connect.php";
 $sql = "select * from product";
 $site = "?";

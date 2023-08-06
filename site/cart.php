@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (isset($_SESSION['user'])) {
+    extract($_SESSION['user']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -265,44 +271,89 @@
                         <div class="cart-content-left">
                             <table>
                                 <tr>
-                                    <th>Sản phẩm</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Màu </th>
-                                    <th>Size</th>
-                                    <th>SL</th>
-                                    <th>Thành tiền</th>
-                                    <th>Xóa</th>
+                                    <th class="w-[calc(100%/7)] text-left">Sản phẩm</th>
+                                    <th class="w-[calc(100%/7)] text-left">Tên sản phẩm</th>
+                                    <th class="w-[calc(100%/7)] text-left">Màu </th>
+                                    <th class="w-[calc(100%/7)] text-left">Size</th>
+                                    <th class="w-[calc(100%/7)] text-left">SL</th>
+                                    <th class="w-[calc(100%/7)] text-left">Thành tiền</th>
+                                    <th class="w-[calc(100%/7)] text-left">Xóa</th>
                                 </tr>
-                                <tr>
-                                    <td><img src="https://pubcdn.ivymoda.com/files/product/thumab/400/2022/05/27/1b751da0513d24200158440a2f9513b4.JPG" alt=""></td>
-                                    <td>
-                                        <p>Áo Thun In Hình</p>
-                                    </td>
-                                    <td><img src="https://pubcdn2.ivymoda.com/images/color/012.png" alt=""></td>
-                                    <td>
-                                        <p>L</p>
-                                    </td>
-                                    <td><input type="number" value="1" min="1"></td>
-                                    <td>490.000<sup>đ</sup></td>
-                                    <td>
-                                        <span>X</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="https://pubcdn.ivymoda.com/files/product/thumab/1400/2022/08/18/eb570a75a91e54af791507df19c488e4.JPG" alt=""></td>
-                                    <td>
-                                        <p>Áo Thun In Hình</p>
-                                    </td>
-                                    <td><img src="https://pubcdn2.ivymoda.com/images/color/009.png" alt=""></td>
-                                    <td>
-                                        <p>L</p>
-                                    </td>
-                                    <td><input type="number" value="1" min="1"></td>
-                                    <td>490.000<sup>đ</sup></td>
-                                    <td>
-                                        <span>X</span>
-                                    </td>
-                                </tr>
+                                <?php
+                                if (isset($_SESSION['user'])) {
+                                    $sql = "select img, name_product, cart.id_product, COUNT(cart.id_product) as sl, price_product from product inner join cart on product.id_product = cart.id_product where id_user = $id_user group by cart.id_product";
+                                    $listProduct = $connect->query($sql)->fetchAll();
+                                    $tong = 0;
+                                    foreach ($listProduct as $li) { ?>
+                                        <tr>
+                                            <td class="w-[calc(100%/7)]"><img src="../upload/<?= $li['img'] ?>" alt=""></td>
+                                            <td class="w-[calc(100%/7)]">
+                                                <p><?= $li['name_product'] ?></p>
+                                            </td>
+                                            <td class="w-[calc(100%/7)]"><img src="https://pubcdn2.ivymoda.com/images/color/012.png" alt=""></td>
+                                            <td class="w-[calc(100%/7)]">
+                                                <p>L</p>
+                                            </td>
+                                            <td class="w-[calc(100%/7)]">
+                                                <p><?= $li['sl'] ?></p>
+                                            </td>
+                                            <td class="w-[calc(100%/7)]"><?= $li['price_product'] * $li['sl'] ?><sup>đ</sup></td>
+                                            <td class="w-[calc(100%/7)]">
+                                                <?php
+                                                if (isset($_POST['delete-product'])) {
+                                                    $id_product = $li['id_product'];
+                                                    $sql = "DELETE FROM cart WHERE id_product = $id_product and id_user = $id_user";
+                                                    $connect->exec($sql);
+                                                }
+                                                ?>
+                                                <form action="" method="post">
+                                                    <button name="delete-product" onclick="return confirm('chắc chưa')">X</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                        $tong = $tong + $li['price_product'] * $li['sl'];
+                                    }
+                                } else {
+                                    if (isset($_SESSION['product'])) {
+                                        $tong = 0;
+                                        $i = 1;
+                                        foreach ($_SESSION['product'] as $li) {
+                                            $id_product = $li['id_product'];
+                                            $sql = "select * from product where id_product = $id_product";
+                                            $product = $connect->query($sql)->fetch();
+                                        ?>
+                                            <tr>
+                                                <td class="w-[calc(100%/7)]"><img src="../upload/<?= $product['img'] ?>" alt=""></td>
+                                                <td class="w-[calc(100%/7)]">
+                                                    <p><?= $product['name_product'] ?></p>
+                                                </td>
+                                                <td class="w-[calc(100%/7)]"><img src="https://pubcdn2.ivymoda.com/images/color/012.png" alt=""></td>
+                                                <td class="w-[calc(100%/7)]">
+                                                    <p>L</p>
+                                                </td>
+                                                <td class="w-[calc(100%/7)]">
+                                                    <p><?= $li['number_product'] ?></p>
+                                                </td>
+                                                <td class="w-[calc(100%/7)]"><?= $product['price_product'] * $li['number_product'] ?><sup>đ</sup></td>
+                                                <td class="w-[calc(100%/7)]">
+                                                    <?php
+                                                    if (isset($_POST['delete-product'])) {
+                                                        array_splice($_SESSION['product'], $i, 1);
+                                                    }
+                                                    ?>
+                                                    <form action="" method="post">
+                                                        <button name="delete-product" onclick="return confirm('chắc chưa')">X</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                <?php
+                                            $tong = $tong + $product['price_product'] * $li['number_product'];
+                                            $i++;
+                                        }
+                                    }
+                                }
+                                ?>
                             </table>
                         </div>
                         <div class="cart-content-right">
@@ -312,22 +363,28 @@
                                 </tr>
                                 <tr>
                                     <td>TỔNG SẢN PHẨM</td>
-                                    <td>2</td>
+                                    <td><?php if (isset($_SESSION['user'])) {
+                                            echo count($listProduct);
+                                        } else if (isset($_SESSION['product'])) {
+                                            echo count($_SESSION['product']);
+                                        } else {
+                                            echo 0;
+                                        } ?></td>
                                 </tr>
                                 <tr>
                                     <td>TỔNG TIỀN HÀNG</td>
-                                    <td>490.000<sup>đ</sup></td>
+                                    <td><?= $tong ?><sup>đ</sup></td>
                                 </tr>
                                 <tr>
                                     <td>TẠM TÍNH</td>
                                     <td>
-                                        <p style="color: black;font-weight: bold;">490.000<sup>đ</sup></p>
+                                        <p style="color: black;font-weight: bold;"><?= $tong ?><sup>đ</sup></p>
                                     </td>
                                 </tr>
                             </table>
-                            <div class="cart-content-right-text">
+                            <div class="cart-content-right-text <?php if ($tong >= 2000000) echo "hidden" ?>">
                                 <p>Miễn phí ship đơn hàng có tổng gía trị trên 2.000.000VND</p>
-                                <p style="color: red;font-weight: bold;">Mua thêm <span style="font-style: 15px;">1.610.000đ</span> để được miễn phí SHIP</p>
+                                <p style="color: red;font-weight: bold;">Mua thêm <span style="font-style: 15px;"><?= number_format(2000000 - $tong) ?></span> để được miễn phí SHIP</p>
                             </div>
                             <div class="cart-content-right-button">
                                 <button>TIẾP TỤC MUA SẮM</button>

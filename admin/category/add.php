@@ -21,7 +21,7 @@ if (isset($_POST['btn-add'])) {
 }
 ?>
 <div class="text-left font-bold text-3xl my-8">Thêm danh mục</div>
-<form action="" method="post" class="w-[21.8%]">
+<form action="" method="post" class="w-[22%]">
     <p class="bg-[#fef7e4] py-2 px-3 text-yellow-800 text-lg rounded-[5px] w-full <?php if (empty($mess)) echo "hidden" ?>"><?= $mess ?></p>
     <label class="font-bold block mb-2 mt-4">Tên danh mục</label>
     <input type="text" class="w-full py-2 px-3 border-[1px] border-gray-300" name="name_category" autofocus required>

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['user'])) {
+    extract($_SESSION['user']);
+}
 require_once "../connect.php";
 if (isset($_POST['dang-ky'])) {
     $fullname = $_POST['fullname'];

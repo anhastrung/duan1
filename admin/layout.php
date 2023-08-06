@@ -1,6 +1,9 @@
 <?php
 session_start();
-if (!strcasecmp($_SESSION['role'], "admin") == 0) {
+if (isset($_SESSION['user'])) {
+  extract($_SESSION['user']);
+}
+if (!$role == "admin") {
   header("location:../../");
   die;
 }
@@ -19,7 +22,6 @@ $accept = [
   "image/gif",
 ];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
