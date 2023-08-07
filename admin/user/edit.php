@@ -95,22 +95,22 @@ if (isset($_POST['sua'])) {
     </div>
     <div class="form-group">
         <?php if (!empty($data['img'])) { ?>
-            <img src="../upload/<?php if (isset($_POST['sua'])) {
-                                    if ($_FILES['img']['size'] > 0) {
-                                        $duoianh = ['jpg', 'png', 'jpeg', 'gif'];
-                                        $duoi = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-                                        if (!in_array($duoi, $duoianh)) {
-                                            $error['img'] = "File không phải là ảnh";
-                                            echo $data['img'];
+            <img src="../../upload/<?php if (isset($_POST['sua'])) {
+                                        if ($_FILES['img']['size'] > 0) {
+                                            $duoianh = ['jpg', 'png', 'jpeg', 'gif'];
+                                            $duoi = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+                                            if (!in_array($duoi, $duoianh)) {
+                                                $error['img'] = "File không phải là ảnh";
+                                                echo $data['img'];
+                                            } else {
+                                                echo $_FILES['img']['name'];
+                                            }
                                         } else {
-                                            echo $_FILES['img']['name'];
+                                            echo $_POST['anh'];
                                         }
                                     } else {
-                                        echo $_POST['anh'];
-                                    }
-                                } else {
-                                    echo $data['img'];
-                                } ?>" alt="" class="h-[100px] w-[100px]">
+                                        echo $data['img'];
+                                    } ?>" alt="" class="h-[100px] w-[100px]">
         <?php } ?>
         <input type="hidden" name="anh" value="<?= $data['img'] ?>">
         <input class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="file" id="lname" name="img">
