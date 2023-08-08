@@ -40,7 +40,11 @@ if (isset($_POST['log-out'])) {
                 <button class="flex justify-center text-[20px] font-semibold hover:text-red-600  text-center m-auto" name="log-out">Thoát</button>
             </form>
         <?php } ?>
-        <a href="cart.php"><i class="ml-2 fa-solid fa-bag-shopping"></i></a>
+        <a href="cart.php">
+            <i class="fa fa-shopping-cart ml-2 relative">
+                <div class="absolute bottom-2.5 left-3 text-[10px] text-red-400 bg-white p-1 rounded-[30px] border-red-500 border-[1px]">1</div>
+            </i>
+        </a>
     </div>
 </div>
 <script>
