@@ -392,7 +392,7 @@ if (isset($_GET['search'])) {
                             </div>
                             <div class="cart-content-right-button">
                                 <button><a href="./index.php">TIẾP TỤC MUA SẮM</a></button>
-                                <button>THANH TOÁN</button>
+                                <button><a href="./shipping_cart.php?tong=<?= $tong ?>">THANH TOÁN</a></button>
                             </div>
                             <div class="cart-content-right-dangnhap">
                                 <p>TÀI KHOÀN IVY</p>
