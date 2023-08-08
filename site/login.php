@@ -25,13 +25,7 @@ if (isset($_POST['dang-nhap'])) {
         if ($data) {
             if ($password == $data['password']) {
                 $_SESSION['user'] = $data;
-                if ($data['role'] == 'admin') {
-                    header("location:../admin");
-                    die;
-                } else {
-                    header("location:./index.php");
-                    die;
-                }
+                header("location:./index.php");
             } else {
                 $error['password'] = "Password không đúng";
             }
@@ -69,9 +63,9 @@ if (isset($_POST['dang-nhap'])) {
                     <p class="mt-[16px] mb-[16px]">Nếu bạn đã có tài khoản, hãy đăng nhập để tích lũy điểm thành viên và nhận được những ưu đãi tốt hơn!</p>
                     <form action="" method="post">
                         <input class="pt-[8px] pb-[8px] border border-[grey] pl-[16px] pr-[220px]" type="text" id="fname" name="email" value="<?= $_POST['email'] ?? "" ?>" placeholder="Email"><br>
-                        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['email'] ?? "" ?></span>
+                        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['email'] ?? "<br>" ?></span>
                         <input class="pt-[8px] pb-[8px] border border-[grey] pl-[16px] pr-[220px]" type="password" id="lname" name="password" value="<?= $_POST['password'] ?? "" ?>" placeholder="Mật khẩu"><br>
-                        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['password'] ?? "" ?></span>
+                        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['password'] ?? "<br>" ?></span>
                         <p><input type="radio"> Ghi nhớ Đăng Nhập</p>
                         <div class="flex justify-between items-center">
                             <p><a href="#">Quên mật khẩu?</a></p>

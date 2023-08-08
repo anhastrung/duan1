@@ -3,6 +3,10 @@ session_start();
 if (isset($_SESSION['user'])) {
     extract($_SESSION['user']);
 }
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+    header("location:loaihang.php?search=$search");
+}
 require "../connect.php";
 if (isset($_SESSION['role'])) {
     $email_dn = $_SESSION['email'];
@@ -224,7 +228,7 @@ if (isset($_SESSION['role'])) {
                 foreach ($listProduct as $li) { ?>
                     <div class="col mb-4">
                         <div class="card">
-                            <a href="detaiproduct.php?id=<?= $li['id_product'] ?>"><img src="<?= "../upload/" . $li['img'] ?>" class="card-img-top w-full"></a>
+                            <a href="detaiproduct.php?id=<?= $li['id_product'] ?>"><img src="<?= "../upload/" . $li['img'] ?>" class="card-img-top w-full hover:animate-pulse"></a>
                             <div class="main-product-sale">
                             </div>
                             <div class="card-body">
@@ -274,10 +278,7 @@ if (isset($_SESSION['role'])) {
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script>
-    document.getElementById('user').onclick = function() {
-        var menuMobile = document.getElementById('Navbaruser').classList;
-        menuMobile.toggle('hidden');
-    }
+    
     let slideIndex = 1;
     showSlides(slideIndex);
     // Next/previous controls

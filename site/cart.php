@@ -3,6 +3,10 @@ session_start();
 if (isset($_SESSION['user'])) {
     extract($_SESSION['user']);
 }
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+    header("location:loaihang.php?search=$search");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -387,7 +391,7 @@ if (isset($_SESSION['user'])) {
                                 <p style="color: red;font-weight: bold;">Mua thêm <span style="font-style: 15px;"><?= number_format(2000000 - $tong) ?></span> để được miễn phí SHIP</p>
                             </div>
                             <div class="cart-content-right-button">
-                                <button>TIẾP TỤC MUA SẮM</button>
+                                <button><a href="./index.php">TIẾP TỤC MUA SẮM</a></button>
                                 <button>THANH TOÁN</button>
                             </div>
                             <div class="cart-content-right-dangnhap">

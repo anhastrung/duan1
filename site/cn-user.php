@@ -1,18 +1,17 @@
 <?php
 session_start();
+require "../connect.php";
 if (isset($_SESSION['user'])) {
     extract($_SESSION['user']);
-}
-require "../connect.php";
-try {
+   try {
     $sql = "SELECT * from user where email='$email'";
     $run = $connect->prepare($sql);
     $run->execute();
     $data = $run->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Lỗi hệ thống";
+} 
 }
-
 
 if (isset($_POST['sua'])) {
     $fullname = $_POST['fullname'];
@@ -56,7 +55,7 @@ if (isset($_POST['sua'])) {
     }
     if (empty($error)) {
         try {
-            $sql = "UPDATE user SET `fullname`='$fullname', `password`='$password', `phone`='$phone', `img`='$img', `birthday`='$ngaysinh', `sex`='$sex', `location`='$location'   WHERE email='$email_dn'";
+            $sql = "UPDATE user SET `fullname`='$fullname', `password`='$password', `phone`='$phone', `img`='$img', `birthday`='$ngaysinh', `sex`='$sex', `location`='$location'   WHERE email='$email'";
             $run = $connect->prepare($sql);
             $run->execute();
             header("location:./index.php");

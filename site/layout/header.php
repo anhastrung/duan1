@@ -23,28 +23,29 @@ if (isset($_POST['log-out'])) {
         <ul class="mx-4 uppercase"><a href="loaihang.php">BỘ SƯU TẬP</a></ul>
         <ul class="ml-4 uppercase"><a href="">VỀ CHÚNG TÔI</a></ul>
     </div>
-    <div class="icon flex justify-between items-center">
+    <form action="" method="get" class="px-3 py-2">
+        <input type="text" placeholder="Từ khoá tìm kiếm" name="search" class="focus:outline-none" onchange="submit()">
         <i class="mr-2 fa-solid fa-magnifying-glass"></i>
-        <div class="user relative inline-block dropdown cursor-pointer">
-            <div class="dropbtn flex justify-start items-center gap-1">
-                <a href="<?php if(!isset($_SESSION['user'])) echo "./login.php" ?>">
-                <i class="mx-2 fa-regular fa-circle-user"></i>
-                </a>
-            </div>
-            <?php
-            if (isset($_SESSION['user'])) {
-            ?>
-                <form method="post" class="dropdown-content hidden absolute bg-[#f9f9f9] left-[-60px]">
-                    <a class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" href="cn-user.php">Cập nhật tài khoản</a>
-                    <?php if ($role == "admin") { ?>
-                        <a class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" href="../admin/">Quản lý trang web</a>
-                    <?php } ?>
-                    <button class="block text-black my-2 hover:text-red-500 text-center min-w-[160px] hover:bg-[#f1f1f1] active:text-green-300" name="log-out">Thoát</button>
-                </form>
-            <?php
-            }
-            ?>
-        </div>
+    </form>
+    <div class="icon flex justify-between items-center">
+        <?php if (!isset($_SESSION['user'])) {
+            echo '<a href="./login.php"><i class="mx-2 fa-regular fa-circle-user"></i></a>';
+        } else { ?>
+            <span class="relative cursor-pointer" id="user">Hello <?= $fullname ?></span>
+            <form method="post" class="hidden absolute top-[60px] border-x-2 border-b-2 border-solid border-[#0ef] rounded-bl-[10px] rounded-br-[10px]" id="Navbaruser">
+                <a class="text-[20px] font-semibold  hover:text-red-600 text-center" href="./cn-user.php">Cập nhật tài khoản</a>
+                <?php if (strcasecmp($role, "admin") == 0) { ?>
+                    <a class="text-[20px] font-semibold hover:text-red-600 flex justify-center" href="../admin/">Admin</a>
+                <?php } ?>
+                <button class="flex justify-center text-[20px] font-semibold hover:text-red-600  text-center m-auto" name="log-out">Thoát</button>
+            </form>
+        <?php } ?>
         <a href="cart.php"><i class="ml-2 fa-solid fa-bag-shopping"></i></a>
     </div>
 </div>
+<script>
+    document.getElementById('user').onclick = function() {
+        var menuMobile = document.getElementById('Navbaruser').classList;
+        menuMobile.toggle('hidden');
+    }
+</script>

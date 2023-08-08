@@ -6,7 +6,11 @@ if (isset($_SESSION['user'])) {
 require "../connect.php";
 $sql = "select * from product";
 $site = "?";
-if (isset($_GET['id'])) {
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $sql = $sql . " " . "where name_product like '%$search%'";
+    $site = $site . "&search=$search";
+} else if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = $sql . " " . "where id_category = $id";
     $site = $site . "&id=$id";
@@ -144,7 +148,11 @@ if ($maxPage % $limitPage == 0) {
             <h3 class="mb-[32px]">Trang chủ > Tất cả Sản Phẩm</h3>
             <div class="ilter-arrange flex">
                 <form action="" method="get">
-                    <?php if(isset($_GET['id'])) echo "<input type='text' name='id' value='$id' hidden>" ?>
+                <?php if (isset($_GET['search'])) {
+                        echo "<input type='text' name='search' value='$search' hidden>";
+                    } else if (isset($_GET['id'])) {
+                        echo "<input type='text' name='id' value='$id' hidden>";
+                    } ?>
                     <select class="border border-[grey] p-[6px] rounded-[5px]" name="arrange" id="" onchange="submit()">
                         <option value="new" <?php if (isset($_GET['arrange']) && $arrange == "new") echo "selected" ?>>Mới nhất</option>
                         <option value="old" <?php if (isset($_GET['arrange']) && $arrange == "old") echo "selected" ?>>Cũ nhất</option>
@@ -157,7 +165,7 @@ if ($maxPage % $limitPage == 0) {
             <div class="grid grid-cols-4 gap-4 mt-[30px]">
                 <?php foreach ($listProduct as $li) { ?>
                     <div>
-                        <a href="detaiproduct.php?id=<?= $li['id_product'] ?>"><img class="w-[300px] h-[350px]" src="../upload/<?= $li['img'] ?>"></a>
+                        <a href="detaiproduct.php?id=<?= $li['id_product'] ?>"><img class="w-[300px] h-[350px] hover:animate-pulse" src="../upload/<?= $li['img'] ?>"></a>
                         <p class="text-center"><?= $li['name_product'] ?></p>
                         <p class="text-center"><?= number_format($li['price_product']) ?>$</p>
                         <div class="input1 ml-[95px]">
@@ -180,7 +188,7 @@ if ($maxPage % $limitPage == 0) {
                 foreach ($listProduct as $li) { ?>
                     <div class="col mb-4">
                         <div class="card">
-                            <img src="<?= "../upload/" . $li['img'] ?>" class="card-img-top w-full">
+                            <a href="detaiproduct.php?id=<?= $li['id_product'] ?>" class=" "><img src="<?= "../upload/" . $li['img'] ?>" class="card-img-top w-full hover:animate-pulse"></a>
                             <div class="main-product-sale">
                             </div>
                             <div class="card-body">
