@@ -1,12 +1,14 @@
 <?php
-$id = $_GET['id'];
+if (!isset($_SESSION['user'])) {
+    header("location:?site=home");
+}
+$id = $id_user;
 $sql = "select * from user where id_user = $id";
 $user = $connect->query($sql)->fetch();
 if (isset($_POST['btn-add'])) {
     $name = trim($_POST['name']);
     $password = trim($_POST['password']);
     $phone = trim($_POST['phone']);
-    $role = $_POST['role'];
     $address = trim($_POST['address']);
     if (empty(trim($_POST['address']))) {
         $address = $user['address'];
@@ -21,7 +23,7 @@ if (isset($_POST['btn-add'])) {
             } else {
                 $tmp = explode('.', $_FILES['anh']["name"]);
                 $anh = md5(rand()) . "." . end($tmp);
-                move_uploaded_file($_FILES['anh']["tmp_name"], "../../upload/" . $anh);
+                move_uploaded_file($_FILES['anh']["tmp_name"], "../upload/" . $anh);
             }
         }
     }
@@ -35,9 +37,9 @@ if (isset($_POST['btn-add'])) {
         $name = $user['name'];
     }
     if (empty($mess)) {
-        $sql = "UPDATE user SET password = '$password', name = '$name', img = '$anh', address = '$address', phone = '$phone', role = b'$role' WHERE user.id_user = $id";
+        $sql = "UPDATE user SET password = '$password', name = '$name', img = '$anh', address = '$address', phone = '$phone' WHERE user.id_user = $id";
         $connect->exec($sql);
-        header("location:?site=list");
+        header("location:?site=home");
     }
 }
 ?>
@@ -63,10 +65,11 @@ if (isset($_POST['btn-add'])) {
     <div>
         <label class="font-bold block mb-2 mt-4">Hình ảnh</label>
         <input type="file" class="border-[1px] w-full border-gray-300 bg-white custom-file-input" name="anh">
+        <img src="../upload/<?= $user['img'] ?>" alt="">
     </div>
     <div>
         <label class="font-bold block mb-2 mt-4">Vai trò</label>
-        <select name="role" id="" class="py-1.5 px-2 border-[1px] w-full border-gray-300">
+        <select name="role" id="" class="py-1.5 px-2 border-[1px] w-full border-gray-300" disabled>
             <option value="0">Người dùng</option>
             <option value="1" <?php if ($user['role'] == 1) echo "selected" ?>>Nhân viên</option>
         </select>
@@ -77,7 +80,5 @@ if (isset($_POST['btn-add'])) {
     </div>
     <div class="mt-3 col-span-3">
         <button name="btn-add" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Sửa thông tin</button>
-        <input type="reset" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300" value="Nhập lại">
-        <a href="?site=list" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Danh sách</a>
     </div>
 </form>

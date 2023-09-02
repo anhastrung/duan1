@@ -3,9 +3,8 @@ session_start();
 if (isset($_SESSION['user'])) {
   extract($_SESSION['user']);
 }
-if (!$role == "admin") {
+if (!$role == "1") {
   header("location:../../");
-  die;
 }
 $limitPage = 9;
 if (isset($_GET['page'])) {
@@ -24,6 +23,7 @@ $accept = [
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <head>
   <meta charset="UTF-8">
@@ -39,7 +39,7 @@ $accept = [
   <div class="sidebar sidebar-dark h-[200%]" id="sidebar">
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
       <li class="nav-item">
-        <a class="nav-link" href="../trang-chu">
+        <a class="nav-link" href="../../site/">
           <svg class="nav-icon"></svg> Trang chủ
         </a>
       </li>
@@ -69,10 +69,9 @@ $accept = [
           <svg class="nav-icon"></svg> Delivery check
         </a>
       </li>
-      <li class="nav-title">Website</li>
       <li class="nav-item">
-        <a class="nav-link" href="../../site/">
-          <svg class="nav-icon"></svg> Website
+        <a class="nav-link" href="../thong-ke">
+          <svg class="nav-icon"></svg> Thống Kê
         </a>
       </li>
     </ul>

@@ -1,5 +1,5 @@
 <?php
-$sql = "select * from product inner join category on category.id_category = product.id_category order by id_product desc";
+$sql = "select * from product left join category on category.id_category = product.id_category order by id_product desc";
 $listLoai = $connect->query($sql . " limit $productPage,$limitPage")->fetchAll();
 $maxPage = count($connect->query($sql)->fetchAll());
 if ($maxPage % $limitPage == 0) {
@@ -58,12 +58,12 @@ if ($maxPage % $limitPage == 0) {
                             <div></div>
                         </label>
                     </td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['name_product'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['price_product'] ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px] <?= $li['id_category']==null? "text-red-500":"" ?>"><?= $li['name_product'] ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= number_format($li['price_product']) ?></td>
                     <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['number_product'] ?></td>
                     <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><img src="<?= "../../upload/".$li['img'] ?>" class="h-20"></td>
                     <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['date_product'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['name_category'] ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['id_category']==null? "không có danh mục":$li['name_category'] ?></td>
                     <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]">
                         <a href="?site=delete&id=<?= $li['id_product'] ?>" class="p-2 border-gray-300 border-[1px] hover:bg-red-300 active:bg-green-300" onclick="return confirm('chắc chưa')">Xoá</a>
                         <a href="?site=edit&id=<?= $li['id_product'] ?>" class="p-2 border-gray-300 border-[1px] hover:bg-red-300 active:bg-green-300">Sửa</a>

@@ -1,5 +1,5 @@
 <?php
-$sql = "select * from bill where status=0 order by id_bill desc";
+$sql = "select * from bill where status=1 order by id_bill desc";
 $listKh = $connect->query($sql . " limit $productPage,$limitPage")->fetchAll();
 $maxPage = count($connect->query($sql)->fetchAll());
 if ($maxPage % $limitPage == 0) {
@@ -17,7 +17,7 @@ if (isset($_POST['delivery'])) {
 ?>
 <div class="text-left font-bold text-3xl my-8">Danh sách hóa đơn</div>
 <div class="justify-end flex gap-2">
-    <a href="?site=listconfirm" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Hóa đơn đã giao hàng</a>
+    <a href="?site=list" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Hóa đơn chưa giao hàng</a>
 </div>
 <div>
     <table class="my-8 w-full">
@@ -45,7 +45,7 @@ if (isset($_POST['delivery'])) {
                     <td class="w-[calc(100%/5)] p-4 border-gray-300 border-y-[1px]">
                         <form action="" method="post">
                             <input type="text" name="id_bill" value="<?= $li['id_bill'] ?>" hidden>
-                            <select name="delivery" id="" onchange="submit()" class="<?php if ($li['status'] == 1) echo "bg-blue-200" ?>">
+                            <select name="delivery" id="" onchange="submit()" class="<?php if ($li['status'] == 1) echo "bg-blue-200" ?>" <?php if ($li['status'] == 1) echo "disabled" ?>>
                                 <option value="0">Đang giao hàng</option>
                                 <option value="1" <?php if ($li['status'] == 1) echo "selected" ?>>Đã giao hàng</option>
                             </select>

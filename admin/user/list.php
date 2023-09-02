@@ -1,6 +1,6 @@
 <?php
 $sql = "select * from user";
-$listLoai = $connect->query($sql . " limit $productPage,$limitPage")->fetchAll();
+$listKh = $connect->query($sql . " limit $productPage,$limitPage")->fetchAll();
 $maxPage = count($connect->query($sql)->fetchAll());
 if ($maxPage % $limitPage == 0) {
     $maxPage = $maxPage / $limitPage - 1;
@@ -8,43 +8,64 @@ if ($maxPage % $limitPage == 0) {
     $maxPage = floor($maxPage / $limitPage);
 }
 ?>
-<div class="text-left font-bold text-3xl my-8">Danh sách sản phẩm</div>
+<div class="text-left font-bold text-3xl my-8">Danh sách người dùng</div>
 <form method="post">
+    <div class="justify-end flex gap-2">
+        <button name="check" value="all" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Chọn tất cả</button>
+        <button name="check" value="none" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Bỏ chọn tất cả</button>
+        <button name="delete-all" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300" onclick="return confirm('chắc chưa')">Xoá các mục đã chọn</button>
+        <?php
+        if (isset($_POST['delete-all'])) {
+            if (!empty($_POST['checkbox'])) {
+                $checkbox = $_POST['checkbox'];
+                foreach ($checkbox as $li) {
+                    $sql = "DELETE FROM user WHERE id_user = $li";
+                    $connect->exec($sql);
+                }
+                header("location:?list");
+            }
+        }
+        ?>
+        <a href="?site=add" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Nhập thêm</a>
+    </div>
     <table class="my-8 w-full">
         <thead>
             <tr>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Họ và tên</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Email</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Số điện thoại</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Hình ảnh</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Ngày sinh</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Giới tính</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Kích hoạt</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Địa chỉ</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">Quyền truy cập</th>
-                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left"><a href="?site=add" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Nhập thêm</a></th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left"></th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">username</th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">name</th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">img</th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">address</th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">phone number</th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left">role</th>
+                <th class="uppercase font-bold text-green-800 w-[calc(100%/8)] border-gray-300 border-y-[1px] p-2 bg-green-100 text-left"></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($listLoai as $li) { ?>
+            <?php foreach ($listKh as $li) { ?>
                 <tr>
-
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['fullname'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['email'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['phone'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><img src="<?= "../../upload/" . $li['img'] ?>" class="h-20 w-[100px]"></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['birthday'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['sex'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= (strcasecmp($li['role'], 'admin') == 0) ? ('<span style="color: red;">admin</span>') : (($li['kichhoat'] == 0) ? '<span style="color: #0ef;">Đang dùng</span>' : '<span style="color: red;">Đã hủy</span>') ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['location'] ?></td>
-                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['role'] ?></td>
                     <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]">
-                        <?php
-                        if (strcasecmp($li['role'], 'admin') != 0) {
-                            echo '<a href="?site=delete&id=' . $li['id_user'] . '" class="p-2 border-gray-300 border-[1px] hover:bg-red-300 active:bg-green-300" onclick="return confirm(', "'chắc chưa'", ')">Xoá</a>';
-                        } else {
-                            echo '';
-                        } ?>
+                        <label class="mcui-checkbox">
+                        <input type="checkbox" id="indeterminate" <?php if (isset($_POST['check']) && $_POST['check'] == "all") {
+                                                                            echo "checked";
+                                                                        } ?> value="<?= $li['id_user'] ?>" name="checkbox[]">
+                            <div>
+                                <svg class="mcui-check" viewBox="-2 -2 35 35" aria-hidden="true">
+                                    <title>checkmark-circle</title>
+                                    <polyline id="polyline" points="7.57 15.87 12.62 21.07 23.43 9.93" />
+                                </svg>
+                            </div>
+                            <div></div>
+                        </label>
+                    </td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['username'] ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['name'] ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><img src="<?= "../../upload/" . $li['img'] ?>" alt="" width="50px" height="50px"></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['address'] ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['phone'] ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]"><?= $li['role'] == 0 ? "Khách hàng" : "Nhân viên"; ?></td>
+                    <td class="w-[calc(100%/8)] p-4 border-gray-300 border-y-[1px]">
+                        <a href="?site=delete&id=<?= $li['id_user'] ?>" class="p-2 border-gray-300 border-[1px] hover:bg-red-300 active:bg-green-300" onclick="return confirm('chắc chưa')">Xoá</a>
                         <a href="?site=edit&id=<?= $li['id_user'] ?>" class="p-2 border-gray-300 border-[1px] hover:bg-red-300 active:bg-green-300">Sửa</a>
                     </td>
                 </tr>

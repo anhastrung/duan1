@@ -1,5 +1,5 @@
 <?php
-$sql = "select * from comment inner join user on user.id_user = comment.id_user inner join product on product.id_product = comment.id_product where status=0 order by id_comment desc";
+$sql = "select * from comment inner join user on user.id_user = comment.id_user inner join product on product.id_product = comment.id_product where status=1 order by id_comment desc";
 $listKh = $connect->query($sql . " limit $productPage,$limitPage")->fetchAll();
 $maxPage = count($connect->query($sql)->fetchAll());
 if ($maxPage % $limitPage == 0) {
@@ -7,22 +7,16 @@ if ($maxPage % $limitPage == 0) {
 } else {
     $maxPage = floor($maxPage / $limitPage);
 }
-if (isset($_POST['accept'])) {
-    $idAccept = $_POST['accept'];
-    $sql = "UPDATE comment SET status = b'1' WHERE comment.id_comment = $idAccept";
-    $connect->exec($sql);
-    header("location:?site=list");
-}
 if (isset($_POST['delete'])) {
     $idDelete = $_POST['delete'];
     $sql = "DELETE FROM comment WHERE comment.id_comment = $idDelete";
     $connect->exec($sql);
-    header("location:?site=list");
+    header("location:?site=listconfirm");
 }
 ?>
-<div class="text-left font-bold text-3xl my-8">Bình luận chờ duyệt</div>
+<div class="text-left font-bold text-3xl my-8">List bình luận</div>
 <div class="justify-end flex gap-2">
-    <a href="?site=listconfirm" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">List bình luận</a>
+    <a href="?site=list" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Duyệt bình luận</a>
 </div>
 <div>
     <table class="my-8 w-full">
@@ -43,9 +37,6 @@ if (isset($_POST['delete'])) {
                     <td class="w-[calc(100%/5)] p-4 border-gray-300 border-y-[1px]"><?= $li['date'] ?></td>
                     <td class="w-[calc(100%/5)] p-4 border-gray-300 border-y-[1px]"><?= $li['content'] ?></td>
                     <td class="w-[calc(100%/5)] p-4 border-gray-300 border-y-[1px]">
-                        <form action="" method="post" class="inline-block">
-                            <button class="border-gray-300 border-[1px] bg-white p-2 hover:text-green-300" name="accept" value="<?=$li['id_comment']?>">Duyệt</button>
-                        </form>
                         <form action="" method="post" class="inline-block">
                             <button class="border-gray-300 border-[1px] bg-white p-2 hover:text-green-300" name="delete" value="<?=$li['id_comment']?>" onclick="return confirm('chắc chưa')">Xóa</button>
                         </form>

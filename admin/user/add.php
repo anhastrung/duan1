@@ -1,128 +1,81 @@
 <?php
-if (isset($_POST['them'])) {
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $img = $_FILES['img'];
-    $ngaysinh = $_POST['ngaysinh'];
-    $sex = $_POST['sex'];
-    $location = $_POST['location'];
-    $password = $_POST['password'];
-    $password_ans = $_POST['answe-password'];
-    $error = [];
-    if (empty($fullname)) {
-        $error['fullname'] = "Vui lòng nhập họ và tên";
+if (isset($_POST['btn-add'])) {
+    if (empty(trim($_POST['address']))) {
+        $mess = "Thiếu địa chỉ";
     }
-    if (empty($email)) {
-        $error['email'] = "Vui lòng nhập email";
+    if (!in_array($_FILES['anh']['type'], $accept)) {
+        $mess = "Chỉ được upload ảnh";
     } else {
-        try {
-            $sql = "SELECT * from user where email='$email'";
-            $run = $connect->prepare($sql);
-            $run->execute();
-            $data_email = $run->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Lỗi hệ thống";
-        }
-        if ($data_email) {
-            $error['email'] = "Email này đã tồn tại";
+        if ($_FILES['anh']['size'] > 2 * 1024 * 1024) {
+            $mess = "Ảnh phải bé hơn 2mb";
         }
     }
-    if (empty($phone)) {
-        $error['phone'] = "Vui lòng nhập số điện thoại";
-    } else {
-        try {
-            $sql = "SELECT * from user where phone='$phone'";
-            $run = $connect->prepare($sql);
-            $run->execute();
-            $data_phone = $run->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Lỗi hệ thống";
-        }
-        if ($data_phone) {
-            $error['phone'] = "Số điện thoại này đã tồn tại";
-        }
+    if (empty(trim($_POST['phone']))) {
+        $mess = "Thiếu số điện thoại";
     }
-    if ($img['size'] <= 0) {
-        $error['img'] = "Bạn chưa tải ảnh";
-    } else {
-        $img_arr = ['jpg', 'png', 'jpeg', 'gif'];
-        $duoi = pathinfo($img['name'], PATHINFO_EXTENSION);
-        if (!in_array($duoi, $img_arr)) {
-            $error['img'] = "File không phải ảnh";
-        } else {
-            $anh = $img['name'];
-        }
+    if (empty(trim($_POST['password']))) {
+        $mess = "Thiếu mật khẩu";
     }
-    if (empty($ngaysinh)) {
-        $error['ngaysinh'] = "Vui lòng chọn ngày sinh";
+    if (empty(trim($_POST['name']))) {
+        $mess = "Thiếu tên";
     }
-    if (empty($location)) {
-        $error['location'] = "Vui lòng nhập địa chỉ";
+    if (empty(trim($_POST['username']))) {
+        $mess = "Thiếu username";
     }
-    if (empty($password)) {
-        $error['password'] = "Vui lòng nhập mật khẩu";
-    }
-    if (empty($password_ans)) {
-        $error['password_ans'] = "Vui lòng nhập lại mật khẩu";
-    } else {
-        if ($password_ans != $password) {
-            $error['password_ans'] = "Mật khẩu không khớp";
-        }
-    }
-    if (empty($error)) {
-        try {
-            $sql = "INSERT INTO `user` (`fullname`, `email`, `password`, `phone`, `img`, `birthday`, `sex`, `location`) VALUES ('$fullname', '$email', '$password', '$phone', '$anh', '$ngaysinh', '$sex', '$location')";
-            $run = $connect->prepare($sql);
-            $run->execute();
-            move_uploaded_file( $img['tmp_name'], "../../upload/" . $anh);
-            header("location:?site=list");
-        } catch (PDOException $e) {
-            echo "Lỗi hệ thống";
-        }
+    if (empty($mess)) {
+        $username = trim($_POST['username']);
+        $name = trim($_POST['name']);
+        $password = trim($_POST['password']);
+        $phone = trim($_POST['phone']);
+        $tmp = explode('.', $_FILES['anh']["name"]);
+        $anh = md5(rand()) . "." . end($tmp);
+        move_uploaded_file($_FILES['anh']["tmp_name"], "../../upload/" . $anh);
+        $role = $_POST['role'];
+        $address = trim($_POST['address']);
+        $sql = "INSERT INTO user (username, password, name, img, address, phone, role) VALUES ('$username', '$password', '$name', '$anh', '$address', '$phone', b'$role')";
+        $connect->exec($sql);
+        $mess = "Thêm user thành công";
+        // $_POST = [];
     }
 }
 ?>
-
-<form method="post" action="" class="grid grid-cols-1 gap-[20px] w-[80%] m-auto" enctype="multipart/form-data">
-    <h3 class="my-[40px] font-bold text-[29px]">Thêm tài khoản mới</h3>
-    <div class="form-group">
-        <input value="<?= $_POST['fullname'] ?? "" ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="text" id="lname" name="fullname" placeholder="Họ và tên">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['fullname'] ?? "" ?></span>
+<div class="text-left font-bold text-3xl my-8">Thêm user</div>
+<p class="bg-[#fef7e4] py-2 px-3 text-yellow-800 text-lg rounded-[5px] <?php if (empty($mess)) echo "hidden" ?>"><?= $mess ?></p>
+<form action="" method="post" class="grid grid-cols-3 gap-x-8" enctype="multipart/form-data">
+    <div>
+        <label class="font-bold block mb-2 mt-4">Username</label>
+        <input type="text" class="py-[5px] px-2 border-[1px] w-full border-gray-300" name="username" required value="<?php if (isset($_POST['username'])) echo $_POST['username'] ?>">
     </div>
-    <div class="form-group">
-        <input value="<?= $_POST['email'] ?? "" ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="email" id="fname" name="email" placeholder="Email">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['email'] ?? "" ?></span>
+    <div>
+        <label class="font-bold block mb-2 mt-4">Name</label>
+        <input type="text" class="py-[5px] px-2 border-[1px] w-full border-gray-300" name="name" required value="<?php if (isset($_POST['name'])) echo $_POST['name'] ?>">
     </div>
-    <div class="form-group">
-        <input value="<?= $_POST['phone'] ?? "" ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="text" id="lname" name="phone" placeholder="Điện thoại">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['phone'] ?? "" ?></span>
+    <div>
+        <label class="font-bold block mb-2 mt-4">Password</label>
+        <input type="password" class="py-[5px] px-2 border-[1px] w-full border-gray-300" name="password" required value="<?php if (isset($_POST['password'])) echo $_POST['password'] ?>">
     </div>
-    <div class="form-group">
-        <input class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="file" id="lname" name="img">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['img'] ?? "" ?></span>
+    <div>
+        <label class="font-bold block mb-2 mt-4">Số điện thoại</label>
+        <input type="text" class="py-[5px] px-2 border-[1px] w-full border-gray-300" name="phone" required value="<?php if (isset($_POST['phone'])) echo $_POST['phone'] ?>">
     </div>
-    <div class="form-group">
-        <input value="<?= $_POST['ngaysinh'] ?? "" ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px]  w-[100%]" type="date" id="fname" name="ngaysinh" placeholder="Ngày sinh">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['ngaysinh'] ?? "" ?></span>
+    <div>
+        <label class="font-bold block mb-2 mt-4">Hình ảnh</label>
+        <input type="file" class="border-[1px] w-full border-gray-300 bg-white custom-file-input" name="anh" required>
     </div>
-    <div class="form-group">
-        <select class="sex w-full" name="sex" id="">
-            <option class="" value="Nam" <?= (isset($_POST['sex']) && ($_POST['sex'] == "Nam")) ? "selected" : "" ?>>Nam</option>
-            <option class="" value="Nữ" <?= (isset($_POST['sex']) && ($_POST['sex'] == "Nữ")) ? "selected" : "" ?>>Nữ</option>
+    <div>
+        <label class="font-bold block mb-2 mt-4">Vai trò</label>
+        <select name="role" id="" class="py-1.5 px-2 border-[1px] w-full border-gray-300">
+            <option value="0">Người dùng</option>
+            <option value="1" <?php if (isset($_POST['role'])&&$_POST['role'] == 1) echo "selected" ?>>Nhân viên</option>
         </select>
     </div>
-    <div class="form-group">
-        <input value="<?= $_POST['location'] ?? "" ?>" class="pt-[8px] pb-[8px]  border border-[grey] pl-[16px] w-[100%]" type="text" id="fname" name="location" placeholder="Nhập địa chỉ">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['location'] ?? "" ?></span>
+    <div class="col-span-3">
+        <label class="font-bold block mb-2 mt-4">Địa chỉ</label>
+        <textarea name="address" rows="3" class="p-3 border-[1px] w-full border-gray-300" required><?php if (isset($_POST['address'])) echo $_POST['address'] ?></textarea>
     </div>
-    <div class="form-group">
-        <input value="<?= $_POST['password'] ?? "" ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px] w-[100%]" type="password" id="lname" name="password" placeholder="Mật khẩu">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['password'] ?? "" ?></span>
+    <div class="mt-3 col-span-3">
+        <button name="btn-add" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Thêm user</button>
+        <input type="reset" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300" value="Nhập lại">
+        <a href="?site=list" class="px-2 py-2 border-[1px] border-gray-300 hover:bg-red-300 active:bg-green-300">Danh sách</a>
     </div>
-    <div class="form-group">
-        <input value="<?= $_POST['answe-password'] ?? "" ?>" class="pt-[8px] pb-[8px] border border-[grey] pl-[16px] w-[100%]" type="password" id="fname" name="answe-password" placeholder="Nhập lại mật khẩu">
-        <span class=" font-normal sm:font-medium md:semibold text-[16px] text-red-600"><?= $error['password_ans'] ?? "" ?></span>
-    </div>
-    <input name="them" class=" font-bold w-[100%] h-[48px] bg-[black] pt-[8px] pb-[8px] pl-[16px] pr-[16px] text-white rounded-[10px]" type="submit" value="Đăng Ký">
 </form>
